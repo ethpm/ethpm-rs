@@ -1,4 +1,4 @@
-use ethpm::*;
+use ethpm;
 
 // Ensure Package structure conforms to the spec
 // present in ethpm-spec/spec/package.spec.json
