@@ -1,11 +1,12 @@
 [package]
 name = "ethpm"
-version = "0.1.0-alpha.1"
+version = "0.1.0-alpha.2"
 authors = ["Bryant Eisenbach <fubuloubu@gmail.com>"]
 edition = "2018"
 license = "MIT"
 description = "Rust library for EthPM package manifest and registry operations"
 homepage = "https://ethpm.github.io/ethpm-spec/"
+repository = "https://github.com/ethpm/ethpm-rs"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
