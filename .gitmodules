@@ -1,3 +1,6 @@
 [submodule "ethpm-spec"]
 	path = ethpm-spec
 	url = https://github.com/ethpm/ethpm-spec.git
+[submodule "rust-web3"]
+	path = rust-web3
+	url = https://github.com/tomusdrw/rust-web3
