@@ -29,6 +29,14 @@
             "problemMatcher": [
                 "$rustc"
             ]
+        },
+        {
+            "label": "cargo build no-std",
+            "type": "shell",
+            "command": "cargo build --features no-std",
+            "problemMatcher": [
+                "$rustc"
+            ]
         }
     ]
 }
