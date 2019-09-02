@@ -1,4 +1,5 @@
-//#![no_std]
+#[cfg(all(feature = "no-std", not(test)))]
+#[no_std]
 
 // We always pull in `std` during tests, because it's just easier
 // to write tests when you can assume you're on a capable platform
