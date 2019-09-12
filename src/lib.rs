@@ -185,6 +185,8 @@ pub struct CompilerInformation<'a> {
 pub enum CompilerType {
     #[serde(rename = "solc")]
     Solc,
+    #[serde(rename = "vyper")]
+    Vyper,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
