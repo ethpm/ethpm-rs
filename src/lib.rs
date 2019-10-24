@@ -32,14 +32,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct Package<'a> {
-    manifest_version: &'a str, //TODO: Rustify
-    package_name: &'a str,
-    meta: Option<PackageMeta<'a>>,
-    version: &'a str, //TODO: Rustify
-    sources: Option<BTreeMap<&'a str, &'a str>>, //TODO: Rustify
-    contract_types: Option<BTreeMap<&'a str, ContractType<'a>>>, //TODO: Rustify
-    deployments: Option<BTreeMap<&'a str, BTreeMap<&'a str, ContractInstance<'a>>>>, //TODO: Rustify
-    build_dependencies: Option<BTreeMap<&'a str, &'a str>>, //TODO: Rustify
+    pub manifest_version: &'a str, //TODO: Rustify
+    pub package_name: &'a str,
+    pub meta: Option<PackageMeta<'a>>,
+    pub version: &'a str, //TODO: Rustify
+    pub sources: Option<BTreeMap<&'a str, &'a str>>, //TODO: Rustify
+    pub contract_types: Option<BTreeMap<&'a str, ContractType<'a>>>, //TODO: Rustify
+    pub deployments: Option<BTreeMap<&'a str, BTreeMap<&'a str, ContractInstance<'a>>>>, //TODO: Rustify
+    pub build_dependencies: Option<BTreeMap<&'a str, &'a str>>, //TODO: Rustify
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -219,6 +219,12 @@ pub struct Method<'a> {
     dev: Option<&'a str>, //TODO: Rustify
 }
 
+impl<'a> Package<'a> {
+    pub fn from_str(contents: &'a str) -> Result<Self, serde_json::Error> {
+        serde_json::from_str(contents)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -232,7 +238,7 @@ mod tests {
             "version": "1.2.3"
         }
         "#;
-        let package: Package = serde_json::from_str(&example).unwrap();
+        let package = Package::from_str(&example).unwrap();
         assert_eq!(package.manifest_version, "2");
         assert_eq!(package.package_name, "This is only a test!");
         assert_eq!(package.version, "1.2.3");
