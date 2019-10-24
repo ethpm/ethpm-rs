@@ -1,30 +1,22 @@
 use std::process::Command;  // Run programs
 use assert_cmd::prelude::*; // Add methods on commands
-use predicates::prelude::*; // Used for writing assertions
 use tempfile::NamedTempFile;
 use std::io::Write;
 
 #[test]
-#[should_panic]
 fn missing_arguments() {
     let mut cmd = Command::main_binary().unwrap();
-    cmd.assert()
-        .failure()
-        .stderr(predicate::str::contains("Problem parsing arguemnts: "));
+    cmd.assert().failure();
 }
 
 #[test]
-#[should_panic]
 fn file_doesnt_exist() {
     let mut cmd = Command::main_binary().unwrap();
     cmd.arg("test/file/doesnt/exist");
-    cmd.assert()
-        .failure()
-        .stderr(predicate::str::contains("Problem reading file: "));
+    cmd.assert().failure();
 }
 
 #[test]
-#[should_panic]
 fn file_not_json() {
     let mut tempfile = NamedTempFile::new().unwrap();
 
@@ -32,13 +24,10 @@ fn file_not_json() {
 
     let mut cmd = Command::main_binary().unwrap();
     cmd.arg(tempfile.path());
-    cmd.assert()
-        .failure()
-        .stderr(predicate::str::contains("Problem parsing file: "));
+    cmd.assert().failure();
 }
 
 #[test]
-#[should_panic]
 fn file_not_ethpm() {
     let example = r#"
     {
@@ -53,9 +42,7 @@ fn file_not_ethpm() {
 
     let mut cmd = Command::main_binary().unwrap();
     cmd.arg(tempfile.path());
-    cmd.assert()
-        .failure()
-        .stderr(predicate::str::contains("Problem parsing file: "));
+    cmd.assert().failure();
 }
 
 #[test]
@@ -74,6 +61,5 @@ fn file_correct() {
 
     let mut cmd = Command::main_binary().unwrap();
     cmd.arg(tempfile.path());
-    cmd.assert()
-        .success();
+    cmd.assert().success();
 }
