@@ -31,70 +31,70 @@ use serde::{Deserialize, Serialize};
 //Rust-based transcription of Package standard as specified at https://github.com/ethpm/ethpm-spec/blob/master/spec/package.spec.json
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct Package<'a> {
-    pub manifest_version: &'a str, //TODO: Rustify
-    pub package_name: &'a str,
-    pub meta: Option<PackageMeta<'a>>,
-    pub version: &'a str, //TODO: Rustify
-    pub sources: Option<BTreeMap<&'a str, &'a str>>, //TODO: Rustify
-    pub contract_types: Option<BTreeMap<&'a str, ContractType<'a>>>, //TODO: Rustify
-    pub deployments: Option<BTreeMap<&'a str, BTreeMap<&'a str, ContractInstance<'a>>>>, //TODO: Rustify
-    pub build_dependencies: Option<BTreeMap<&'a str, &'a str>>, //TODO: Rustify
+pub struct Package {
+    pub manifest_version: String,
+    pub package_name: String,
+    pub meta: Option<PackageMeta>,
+    pub version: String,
+    pub sources: Option<BTreeMap<String, String>>,
+    pub contract_types: Option<BTreeMap<String, ContractType>>,
+    pub deployments: Option<BTreeMap<String, BTreeMap<String, ContractInstance>>>,
+    pub build_dependencies: Option<BTreeMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct PackageMeta<'a> {
-    authors: Option<Vec<&'a str>>,
-    license: Option<&'a str>,
-    description: Option<&'a str>,
-    keywords: Option<Vec<&'a str>>,
-    links: Option<BTreeMap<&'a str, &'a str>>, //TODO: Rustify
+pub struct PackageMeta {
+    authors: Option<Vec<String>>,
+    license: Option<String>,
+    description: Option<String>,
+    keywords: Option<Vec<String>>,
+    links: Option<BTreeMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct ContractType<'a> {
-    contract_name: Option<&'a str>,
-    deployment_bytecode: Option<BytecodeObject<'a>>,
-    runtime_bytecode: Option<BytecodeObject<'a>>,
-    abi: Option<Vec<ABI<'a>>>,
-    natspec: Option<NatSpec<'a>>,
-    compiler: Option<CompilerInformation<'a>>,
+pub struct ContractType {
+    contract_name: Option<String>,
+    deployment_bytecode: Option<BytecodeObject>,
+    runtime_bytecode: Option<BytecodeObject>,
+    abi: Option<Vec<ABI>>,
+    natspec: Option<NatSpec>,
+    compiler: Option<CompilerInformation>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct ContractInstance<'a> {
-    contract_type: &'a str,
-    address: &'a str,
-    transaction: Option<&'a str>,
-    block: Option<&'a str>,
-    deployment_bytecode: Option<BytecodeObject<'a>>,
-    runtime_bytecode: Option<BytecodeObject<'a>>,
-    compiler: Option<CompilerInformation<'a>>,
-    link_dependencies: Option<Vec<LinkValue<'a>>>,
+pub struct ContractInstance {
+    contract_type: String,
+    address: String,
+    transaction: Option<String>,
+    block: Option<String>,
+    deployment_bytecode: Option<BytecodeObject>,
+    runtime_bytecode: Option<BytecodeObject>,
+    compiler: Option<CompilerInformation>,
+    link_dependencies: Option<Vec<LinkValue>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct BytecodeObject<'a> {
-    bytecode: Option<&'a str>,
-    link_references: Option<Vec<LinkReference<'a>>>,
-    link_dependencies: Option<Vec<LinkValue<'a>>>,
+pub struct BytecodeObject {
+    bytecode: Option<String>,
+    link_references: Option<Vec<LinkReference>>,
+    link_dependencies: Option<Vec<LinkValue>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct ABI<'a> {
+pub struct ABI {
     constant: Option<bool>,
     anonymous: Option<bool>,
-    inputs: Option<Vec<EthTypes<'a>>>,
-    name: Option<&'a str>,
-    outputs: Option<Vec<EthTypes<'a>>>,
+    inputs: Option<Vec<EthTypes>>,
+    name: Option<String>,
+    outputs: Option<Vec<EthTypes>>,
     payable: Option<bool>,
     #[serde(rename = "stateMutability")]
-    state_mutability: Option<&'a str>, //TODO: Rustify
+    state_mutability: Option<String>,
     #[serde(rename = "type")]
     type_property: Option<EthMethodType>,
 }
@@ -114,9 +114,9 @@ pub enum EthMethodType {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct EthTypes<'a> {
+pub struct EthTypes {
     indexed: Option<bool>,
-    name: &'a str,
+    name: String,
     #[serde(rename = "type")]
     type_property: EthValueType,
 }
@@ -148,10 +148,10 @@ pub enum StateMutability {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct LinkReference<'a> {
+pub struct LinkReference {
     offsets: Vec<i64>,
     length: u64,
-    name: &'a str,
+    name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -165,18 +165,18 @@ enum LinkValueType {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct LinkValue<'a> {
+pub struct LinkValue {
     offsets: Vec<i64>,
     #[serde(rename = "type")]
     type_property: LinkValueType,
-    value: &'a str, //TODO: Rustify
+    value: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct CompilerInformation<'a> {
+pub struct CompilerInformation {
     name: CompilerType,
-    version: &'a str, //TODO: Rustify
+    version: String,
     settings: Option<CompilerSettings>,
 }
 
@@ -197,30 +197,30 @@ pub struct CompilerSettings {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct NatSpec<'a> {
-    compiler: Option<CompilerInformation<'a>>,
-    author: Option<&'a str>,
-    methods: Option<BTreeMap<&'a str, Method<'a>>>,
-    title: Option<&'a str>,
-    description: Option<&'a str>,
+pub struct NatSpec {
+    compiler: Option<CompilerInformation>,
+    author: Option<String>,
+    methods: Option<BTreeMap<String, Method>>,
+    title: Option<String>,
+    description: Option<String>,
     #[serde(rename = "type")]
-    type_property: Option<&'a str>, //TODO: Rustify
-    dev: Option<&'a str>,
+    type_property: Option<String>,
+    dev: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-pub struct Method<'a> {
-    details: Option<&'a str>,
-    params: Option<BTreeMap<&'a str, &'a str>>,
-    notice: Option<&'a str>,
+pub struct Method {
+    details: Option<String>,
+    params: Option<BTreeMap<String, String>>,
+    notice: Option<String>,
     #[serde(rename = "return")]
     return_property: Option<EthValueType>,
-    dev: Option<&'a str>, //TODO: Rustify
+    dev: Option<String>,
 }
 
-impl<'a> Package<'a> {
-    pub fn from_str(contents: &'a str) -> Result<Self, serde_json::Error> {
+impl Package {
+    pub fn from_str(contents: &str) -> Result<Self, serde_json::Error> {
         serde_json::from_str(contents)
     }
 }
