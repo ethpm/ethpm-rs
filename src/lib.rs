@@ -34,32 +34,48 @@ use serde::{Deserialize, Serialize};
 pub struct Package {
     pub manifest_version: String,
     pub package_name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub meta: Option<PackageMeta>,
     pub version: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sources: Option<BTreeMap<String, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub contract_types: Option<BTreeMap<String, ContractType>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub deployments: Option<BTreeMap<String, BTreeMap<String, ContractInstance>>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub build_dependencies: Option<BTreeMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct PackageMeta {
+    #[serde(skip_serializing_if = "Option::is_none")]
     authors: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     license: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     keywords: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     links: Option<BTreeMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct ContractType {
+    #[serde(skip_serializing_if = "Option::is_none")]
     contract_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     deployment_bytecode: Option<BytecodeObject>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     runtime_bytecode: Option<BytecodeObject>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     abi: Option<Vec<ABI>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     natspec: Option<NatSpec>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     compiler: Option<CompilerInformation>,
 }
 
@@ -68,34 +84,51 @@ pub struct ContractType {
 pub struct ContractInstance {
     contract_type: String,
     address: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     transaction: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     block: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     deployment_bytecode: Option<BytecodeObject>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     runtime_bytecode: Option<BytecodeObject>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     compiler: Option<CompilerInformation>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     link_dependencies: Option<Vec<LinkValue>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct BytecodeObject {
+    #[serde(skip_serializing_if = "Option::is_none")]
     bytecode: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     link_references: Option<Vec<LinkReference>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     link_dependencies: Option<Vec<LinkValue>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct ABI {
+    #[serde(skip_serializing_if = "Option::is_none")]
     constant: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     anonymous: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     inputs: Option<Vec<EthTypes>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     outputs: Option<Vec<EthTypes>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     payable: Option<bool>,
     #[serde(rename = "stateMutability")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     state_mutability: Option<String>,
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     type_property: Option<EthMethodType>,
 }
 
@@ -115,6 +148,7 @@ pub enum EthMethodType {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct EthTypes {
+    #[serde(skip_serializing_if = "Option::is_none")]
     indexed: Option<bool>,
     name: String,
     #[serde(rename = "type")]
@@ -177,6 +211,7 @@ pub struct LinkValue {
 pub struct CompilerInformation {
     name: CompilerType,
     version: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     settings: Option<CompilerSettings>,
 }
 
@@ -198,24 +233,36 @@ pub struct CompilerSettings {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct NatSpec {
+    #[serde(skip_serializing_if = "Option::is_none")]
     compiler: Option<CompilerInformation>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     author: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     methods: Option<BTreeMap<String, Method>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     title: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     description: Option<String>,
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     type_property: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     dev: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct Method {
+    #[serde(skip_serializing_if = "Option::is_none")]
     details: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     params: Option<BTreeMap<String, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     notice: Option<String>,
     #[serde(rename = "return")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     return_property: Option<EthValueType>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     dev: Option<String>,
 }
 
