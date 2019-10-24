@@ -219,6 +219,12 @@ pub struct Method<'a> {
     dev: Option<&'a str>, //TODO: Rustify
 }
 
+impl<'a> Package<'a> {
+    pub fn from_str(contents: &'a str) -> Result<Self, serde_json::Error> {
+        serde_json::from_str(contents)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -232,7 +238,7 @@ mod tests {
             "version": "1.2.3"
         }
         "#;
-        let package: Package = serde_json::from_str(&example).unwrap();
+        let package = Package::from_str(&example).unwrap();
         assert_eq!(package.manifest_version, "2");
         assert_eq!(package.package_name, "This is only a test!");
         assert_eq!(package.version, "1.2.3");
