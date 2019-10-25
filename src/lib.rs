@@ -270,6 +270,11 @@ impl Package {
     pub fn from_str(contents: &str) -> Result<Self, serde_json::Error> {
         serde_json::from_str(contents)
     }
+
+    pub fn to_string(&self) -> String {
+        // Safe to unwrap because it should always be well-formed
+        serde_json::to_string(&self).unwrap()
+    }
 }
 
 #[cfg(test)]
@@ -289,5 +294,23 @@ mod tests {
         assert_eq!(package.manifest_version, "2");
         assert_eq!(package.package_name, "This is only a test!");
         assert_eq!(package.version, "1.2.3");
+    }
+
+    #[test]
+    fn serialize_to_string() {
+        let p = Package {
+            manifest_version: "2".to_string(),
+            package_name: "This is only a test!".to_string(),
+            meta: None,
+            version: "1.2.3".to_string(),
+            sources: None,
+            contract_types: None,
+            deployments: None,
+            build_dependencies: None,
+        };
+        assert_eq!(
+            p.to_string(),
+            r#"{"manifest_version":"2","package_name":"This is only a test!","version":"1.2.3"}"#,
+        );
     }
 }
