@@ -77,7 +77,7 @@ pub struct ABI {
     payable: Option<bool>,
     #[serde(rename = "stateMutability")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    state_mutability: Option<String>,
+    state_mutability: Option<StateMutability>,
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     type_property: Option<EthMethodType>,
