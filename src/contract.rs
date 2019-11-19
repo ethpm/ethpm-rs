@@ -7,7 +7,12 @@ use alloc::vec::Vec;
 
 use serde::{Deserialize, Serialize};
 
+// TODO: Use this temporarily until web3::types implemented no-std
+use crate::bytes::Bytes;
+//use web3::types::Bytes;
+
 use crate::documentation::{CompilerInformation, NatSpec, LinkValue, LinkReference}; 
+
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
@@ -49,7 +54,7 @@ pub struct ContractInstance {
 #[serde(deny_unknown_fields)]
 pub struct BytecodeObject {
     #[serde(skip_serializing_if = "Option::is_none")]
-    bytecode: Option<String>,
+    bytecode: Option<Bytes>,
     #[serde(skip_serializing_if = "Option::is_none")]
     link_references: Option<Vec<LinkReference>>,
     #[serde(skip_serializing_if = "Option::is_none")]

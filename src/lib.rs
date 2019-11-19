@@ -20,6 +20,9 @@ use contract::{ContractType, ContractInstance};
 
 mod documentation;
 
+// TODO: Use this temporarily until web3::types implemented no-std
+mod bytes;
+
 //Rust-based transcription of Package standard as specified at https://github.com/ethpm/ethpm-spec/blob/master/spec/package.spec.json
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
