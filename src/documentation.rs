@@ -3,9 +3,6 @@
 //!
 
 #[cfg(all(feature = "no-std", not(test)))]
-extern crate alloc;
-
-#[cfg(all(feature = "no-std", not(test)))]
 use alloc::vec::Vec;
 
 #[cfg(all(feature = "no-std", not(test)))]
@@ -13,7 +10,6 @@ use alloc::collections::btree_map::BTreeMap;
 #[cfg(any(feature = "default", feature = "std", test))]
 use std::collections::BTreeMap;
 
-extern crate serde;
 use serde::{Deserialize, Serialize};
 
 use crate::contract::EthValueType;

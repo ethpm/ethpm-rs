@@ -1,7 +1,5 @@
-extern crate ethpm;
 use ethpm::Package;
 
-extern crate clap;
 use clap::{Arg, ArgMatches, App};
 
 use std::fs;
