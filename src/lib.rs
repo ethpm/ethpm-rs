@@ -5,17 +5,6 @@
 #[cfg(all(feature = "no-std", not(test)))]
 #[no_std]
 
-#[cfg(any(feature = "default", feature = "std", test))]
-#[macro_use]
-extern crate std;
-
-#[cfg(all(feature = "no-std", not(test)))]
-#[macro_use]
-extern crate core as std;
-
-#[cfg(all(feature = "no-std", not(test)))]
-extern crate alloc;
-
 #[cfg(all(feature = "no-std", not(test)))]
 use alloc::vec::Vec;
 
@@ -23,12 +12,6 @@ use alloc::vec::Vec;
 use alloc::collections::btree_map::BTreeMap;
 #[cfg(any(feature = "default", feature = "std", test))]
 use std::collections::BTreeMap;
-
-extern crate serde;
-#[cfg(any(feature = "default", feature = "std", test))]
-extern crate serde_json;
-#[cfg(all(feature = "no-std", not(test)))]
-extern crate serde_json_core;
 
 use serde::{Deserialize, Serialize};
 

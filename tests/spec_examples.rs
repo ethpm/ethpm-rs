@@ -1,8 +1,6 @@
 use std::fs;
 use std::io::prelude::*;
 
-extern crate paste;
-
 use ::ethpm::Package;
 
 macro_rules! test_case {

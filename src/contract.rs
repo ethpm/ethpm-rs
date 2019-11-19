@@ -3,12 +3,8 @@
 //!
 
 #[cfg(all(feature = "no-std", not(test)))]
-extern crate alloc;
-
-#[cfg(all(feature = "no-std", not(test)))]
 use alloc::vec::Vec;
 
-extern crate serde;
 use serde::{Deserialize, Serialize};
 
 use crate::documentation::{CompilerInformation, NatSpec, LinkValue, LinkReference}; 
