@@ -20,7 +20,7 @@ jobs:
     - name: Add Rust (nightly)
       run: rustup toolchain install nightly
       
-    - name: ethpm-spec
+    - name: Checkout ethpm-spec
       run: git submodule sync --recursive && git submodule update --init --recursive
       
     - name: Build (std)
@@ -29,5 +29,5 @@ jobs:
     - name: Build (wasm)
       run: cargo +nightly build --verbose --no-default-features --features no-std
       
-    - name: Run tests
+    - name: Run tests (std)
       run: cargo test --verbose
